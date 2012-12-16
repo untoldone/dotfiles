@@ -11,6 +11,7 @@ function proml {
   local       WHITE="\[\033[1;37m\]"
   local  LIGHT_GRAY="\[\033[0;37m\]"
   local       BLACK="\[\033[0;30m\]"
+  local       RESET="\[\033[0;00m\]"
   case $TERM in
     xterm*)
     TITLEBAR='\[\033]0;\u@\h:\w\007\]'
@@ -23,7 +24,8 @@ function proml {
 PS1="${TITLEBAR}\
 $BLUE[$RED\$(date +%H:%M)$BLUE]\
 $BLUE[$RED\h:\W$GREEN\$(parse_git_branch)$BLUE]\
-$GREEN\$ \e[m"
+$GREEN\$ $RESET"
+#$GREEN\$ \e[m"
 PS2='> '
 PS4='+ '
 }
