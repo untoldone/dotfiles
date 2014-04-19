@@ -123,6 +123,11 @@ function! RenameFile()
 endfunction
 map <leader>n :call RenameFile()<cr>
 
+"""""""""""""""""""""""""""
+""" REMOVE CURRENT FILE
+"""""""""""""""""""""""""""
+command! Rm call delete(expand('%')) | bdelete!
+
 """""""""""""""""""""""""""""""""""""""""""""
 """ SWTICH BETWEEN TEST AND PRODUCTION CODE
 """""""""""""""""""""""""""""""""""""""""""""
@@ -135,22 +140,15 @@ function! AlternateForCurrentFile()
   let new_file = current_file
   let in_spec = match(current_file, '^spec/') != -1
   let going_to_spec = !in_spec
-  let in_app = match(current_file, '\<controllers\>') != -1 || match(current_file, '\<models\>') != -1 || match(current_file, '\<views\>') != -1
-  let in_lib = match(current_file, '\<lib\>') != 1
+  "let in_app = match(current_file, '\<controllers\>') != -1 || match(current_file, '\<models\>') != -1 || match(current_file, '\<views\>') != -1
   if going_to_spec
-    if in_app
-      let new_file = substitute(new_file, '^app/', '', '')
-    elseif in_lib
-      let new_file = substitute(new_file, '^lib/', '', '')
-    end
+    let new_file = substitute(new_file, '^app/', '', '')
     let new_file = substitute(new_file, '\.rb$', '_spec.rb', '')
     let new_file = 'spec/' . new_file
   else
     let new_file = substitute(new_file, '_spec\.rb$', '.rb', '')
     let new_file = substitute(new_file, '^spec/', '', '')
-    if in_app
-      let new_file = 'app/' . new_file
-    end
+    let new_file = 'app/' . new_file
     if !filereadable(new_file) && filereadable('lib/' . new_file)
       let new_file = 'lib/' . new_file
     end
@@ -204,7 +202,7 @@ function! RunTests(filename)
     :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
     :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
     :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
-    exec ":!rspec --color " . a:filename
+    exec ":!rspec --color --drb " . a:filename
 endfunction
 
 """"""""""""""""""""
