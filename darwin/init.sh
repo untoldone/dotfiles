@@ -10,4 +10,4 @@ sudo spctl --master-disable
 
 # Install java
 brew tap homebrew/cask
-brew cask install --no-quarantine adoptopenjdk
+brew cask install --no-quarantine homebrew/cask-versions/adoptopenjdk8
