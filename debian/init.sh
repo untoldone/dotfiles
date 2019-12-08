@@ -2,10 +2,10 @@
 
 set -e
 
-sudo apt-get update
+sudo -S apt-get update
 
 # Update existing packages
-sudo apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" dist-upgrade
+yes '' | sudo DEBIAN_FRONTEND=noninteractive apt-get -y -o DPkg::options::="--force-confdef" -o DPkg::options::="--force-confnew" dist-upgrade
 
 # General tools
 sudo apt-get install -y zsh curl apt-transport-https unzip ntp dbus software-properties-common openjdk-11-jdk jq
@@ -21,3 +21,7 @@ touch ~/.zshrc
 sudo apt-get install -y gawk bison libffi-dev libgdbm-dev libncurses5-dev libsqlite3-dev libyaml-dev pkg-config sqlite3 zlib1g-dev libgmp-dev libreadline-dev libssl-dev
 
 sudo cp ./debian/apt-10periodic /etc/apt/apt.conf.d/10periodic
+
+# Timezone
+sudo ln -fs /usr/share/zoneinfo/US/Pacific /etc/localtime
+sudo dpkg-reconfigure -f noninteractive tzdata

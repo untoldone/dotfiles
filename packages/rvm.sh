@@ -7,9 +7,9 @@ if [ -f ~/.rvm/bin/rvm ]; then
   exit 0
 fi
 
-curl -L https://get.rvm.io | bash -s -- --autolibs=read-fail
-
+\curl -sSL https://get.rvm.io | bash -s -- --autolibs=read-fail
 source ~/.rvm/scripts/rvm
+
 rvm install 2.6.5
 
 echo source ~/.rvm/scripts/rvm >> ~/.zshrc

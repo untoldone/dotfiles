@@ -8,7 +8,7 @@ SCRIPT_PATH="$(dirname $0)"
 cd $SCRIPT_PATH
 
 # Ask for the administrator password upfront
-sudo -v
+echo $1 | sudo -S -v
 
 # Keep-alive: update existing `sudo` time stamp until the script has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
@@ -33,9 +33,6 @@ mkdir -p ~/Source ~/.ssh
 
 if [[ ! -e ~/.oh-my-zsh ]]; then
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-
-  echo ZSH_THEME=dallas | cat - ~/.zshrc > ~/.zshrctmp
-  mv ~/.zshrctmp ~/.zshrc
 fi
 
 $SCRIPT_PATH/packages/rvm.sh
