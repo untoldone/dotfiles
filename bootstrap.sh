@@ -2,14 +2,12 @@
 
 set -e
 
-echo "Sudo password?"
-read PASS
+curl -LO https://github.com/untoldone/dotfiles/archive/master.zip
+unzip master.zip
 
-git clone https://github.com/untoldone/dotfiles.git
+cd dotfiles-master
 
-cd dotfiles
-
-./init.sh $PASS
+./init.sh $1
 
 cd ..
-rm -rf dotfiles
+rm -rf dotfiles-master.zip
