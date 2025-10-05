@@ -26,11 +26,11 @@ if [[ -f /etc/debian_version ]]; then
 fi
 
 curl -LO https://github.com/untoldone/dotfiles/archive/master.zip
-unzip master.zip
+unzip -o master.zip
 
 cd dotfiles-master
 
 ./init.sh
 
 cd ..
-rm -rf dotfiles-master.zip
+rm -rf master.zip dotfiles-master
