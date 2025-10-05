@@ -23,7 +23,28 @@ case $OS_TYPE in
       echo "Install Node.js/fnm first, then run this script again."
       exit 0
     fi
+
+    # Install to the default Node version
+    fnm use default
     npm install -g @anthropic-ai/claude-code
+
+    # Create ~/.local/bin if it doesn't exist
+    mkdir -p ~/.local/bin
+
+    # Create shim script that always uses default Node version
+    # Using exec preserves all arguments, options, stdin/stdout/stderr, and exit codes
+    cat > ~/.local/bin/claude << 'EOF'
+#!/usr/bin/env bash
+eval "$(fnm env)"
+fnm use default --silent-if-unchanged 2>/dev/null
+exec "$(fnm current | xargs -I {} echo "$HOME/.local/share/fnm/node-versions/{}/installation/bin/claude")" "$@"
+EOF
+    chmod +x ~/.local/bin/claude
+
+    # Add ~/.local/bin to PATH in zshrc if not already present
+    if ! grep -q '.local/bin' ~/.zshrc 2>/dev/null; then
+      echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
+    fi
     ;;
   darwin)
     # Install Claude Code CLI for macOS
