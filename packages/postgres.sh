@@ -9,16 +9,17 @@ fi
 
 case $OS_TYPE in
   debian)
-    echo deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main | sudo tee -a /etc/apt/sources.list.d/pgdg.list
-    wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+    # Install PostgreSQL from official apt repository
+    sudo apt-get install -y wget gnupg2
+    wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo gpg --dearmor -o /usr/share/keyrings/postgresql-keyring.gpg
+    echo "deb [signed-by=/usr/share/keyrings/postgresql-keyring.gpg] http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list
     sudo apt-get update
-    sudo apt-get install -y postgresql-11 postgresql-client-11 libpq-dev
+    sudo apt-get install -y postgresql-18 postgresql-client-18 libpq-dev
 
     ;;
   darwin)
-    brew install postgresql
-    # brew services start postgresql
-    # pg_ctl -D /usr/local/var/postgres start
+    brew install postgresql@18
+    # brew services start postgresql@17
     ;;
   *)
     echo "Unsupported OS $UNAME"

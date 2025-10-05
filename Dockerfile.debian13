@@ -1,0 +1,19 @@
+FROM debian:trixie
+
+# Avoid prompts from apt
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install sudo and setup basic environment
+RUN apt-get update && \
+    apt-get install -y sudo curl unzip && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Set up a test password for sudo (for automated testing)
+RUN echo 'root:testpassword' | chpasswd
+
+# Create working directory
+WORKDIR /root
+
+# Keep container running
+CMD ["/bin/bash"]

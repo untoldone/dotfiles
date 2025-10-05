@@ -8,7 +8,7 @@ sudo -S apt-get update
 yes '' | sudo DEBIAN_FRONTEND=noninteractive apt-get -y -o DPkg::options::="--force-confdef" -o DPkg::options::="--force-confnew" dist-upgrade
 
 # General tools
-sudo apt-get install -y zsh curl apt-transport-https unzip ntp dbus software-properties-common openjdk-11-jdk jq
+sudo apt-get install -y zsh curl apt-transport-https unzip ntpsec dbus jq git build-essential openjdk-21-jdk
 
 # Switch shell
 sudo sed -i 's/required   pam_shells.so/sufficient   pam_shells.so/g' /etc/pam.d/chsh
@@ -18,7 +18,7 @@ sudo sed -i 's/sufficient   pam_shells.so/required   pam_shells.so/g' /etc/pam.d
 touch ~/.zshrc
 
 # RVM Dependencies
-sudo apt-get install -y gawk bison libffi-dev libgdbm-dev libncurses5-dev libsqlite3-dev libyaml-dev pkg-config sqlite3 zlib1g-dev libgmp-dev libreadline-dev libssl-dev
+sudo apt-get install -y gawk bison libffi-dev libgdbm-dev libncurses-dev libsqlite3-dev libyaml-dev pkg-config sqlite3 zlib1g-dev libgmp-dev libreadline-dev libssl-dev autoconf automake libtool
 
 sudo cp ./debian/apt-10periodic /etc/apt/apt.conf.d/10periodic
 

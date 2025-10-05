@@ -9,11 +9,11 @@ fi
 
 case $OS_TYPE in
   debian)
-    export GO_INSTALL_FILE=go1.13.5.linux-amd64.tar.gz
+    export GO_INSTALL_FILE=go1.25.1.linux-amd64.tar.gz
     export GO_INSTALL_GROUP=root
     ;;
   darwin)
-    export GO_INSTALL_FILE=go1.13.5.darwin-amd64.tar.gz
+    export GO_INSTALL_FILE=go1.25.1.darwin-amd64.tar.gz
     export GO_INSTALL_GROUP=admin
     ;;
   *)
@@ -27,7 +27,10 @@ rm $GO_INSTALL_FILE
 sudo chown -R root:$GO_INSTALL_GROUP ./go
 sudo mv go /usr/local
 
-mkdir ~/go
+mkdir -p ~/go
 
-echo 'export GOPATH=$HOME/go' >> ~/.zshrc
-echo 'export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin' >> ~/.zshrc
+# Add Go to zshrc if not already present
+if ! grep -q "GOPATH" ~/.zshrc 2>/dev/null; then
+  echo 'export GOPATH=$HOME/go' >> ~/.zshrc
+  echo 'export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin' >> ~/.zshrc
+fi

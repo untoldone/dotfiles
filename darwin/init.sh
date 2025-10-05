@@ -9,5 +9,5 @@ brew install autoconf automake libtool pkg-config coreutils libyaml libksba read
 sudo spctl --master-disable
 
 # Install java
-brew tap homebrew/cask
-brew cask install --no-quarantine homebrew/cask-versions/adoptopenjdk8
+brew tap homebrew/cask-versions
+brew install --cask --no-quarantine adoptopenjdk8

@@ -11,7 +11,10 @@ case $OS_TYPE in
 
     sudo apt-get install -y ant maven gradle android-sdk
 
-    echo export ANDROID_HOME=/usr/lib/android-sdk >> ~/.zshrc
+    # Add Android environment variables to zshrc if not already present
+    if ! grep -q "ANDROID_HOME" ~/.zshrc 2>/dev/null; then
+      echo 'export ANDROID_HOME=/usr/lib/android-sdk' >> ~/.zshrc
+    fi
 
     ;;
   darwin)
@@ -21,19 +24,23 @@ case $OS_TYPE in
     fi
 
     brew install ant maven gradle
-    brew cask install android-sdk android-ndk
+    brew install --cask android-sdk android-ndk
 
-    echo export ANT_HOME=/usr/local/opt/ant >> ~/.zshrc
-    echo export MAVEN_HOME=/usr/local/opt/maven >> ~/.zshrc
-    echo export GRADLE_HOME=/usr/local/opt/gradle >> ~/.zshrc
-    echo export ANDROID_HOME=/usr/local/opt/android-sdk >> ~/.zshrc
-    echo export ANDROID_NDK_HOME=/usr/local/opt/android-ndk >> ~/.zshrc
-
-    echo 'export PATH=$ANT_HOME/bin:$PATH' >> ~/.zshrc
-    echo 'export PATH=$MAVEN_HOME/bin:$PATH' >> ~/.zshrc
-    echo 'export PATH=$GRADLE_HOME/bin:$PATH' >> ~/.zshrc
-    echo 'export PATH=$ANDROID_HOME/tools:$PATH' >> ~/.zshrc
-    echo 'export PATH=$ANDROID_HOME/platform-tools:$PATH' >> ~/.zshrc
+    # Add Android environment variables to zshrc if not already present
+    if ! grep -q "ANDROID_HOME" ~/.zshrc 2>/dev/null; then
+      cat >> ~/.zshrc << 'ANDROID_EOF'
+export ANT_HOME=/usr/local/opt/ant
+export MAVEN_HOME=/usr/local/opt/maven
+export GRADLE_HOME=/usr/local/opt/gradle
+export ANDROID_HOME=/usr/local/opt/android-sdk
+export ANDROID_NDK_HOME=/usr/local/opt/android-ndk
+export PATH=$ANT_HOME/bin:$PATH
+export PATH=$MAVEN_HOME/bin:$PATH
+export PATH=$GRADLE_HOME/bin:$PATH
+export PATH=$ANDROID_HOME/tools:$PATH
+export PATH=$ANDROID_HOME/platform-tools:$PATH
+ANDROID_EOF
+    fi
     #export PATH=$ANDROID_HOME/build-tools/19.1.0:$PATH
 
     ;;

@@ -1,0 +1,6 @@
+[user]
+	name = untoldone
+	email = untoldone@users.noreply.github.com
+
+[pull]
+	rebase = true

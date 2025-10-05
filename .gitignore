@@ -1,1 +1,25 @@
-.vagrant
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Vagrant
+.vagrant/
+*.box
+
+# Temporary files
+*.swp
+*.swo
+*~
+.*.swp
+
+# Downloaded archives
+*.zip
+*.tar.gz
+*.tgz
+
+# Build artifacts
+/go/
+master.zip
+dotfiles-master/
