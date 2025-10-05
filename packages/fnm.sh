@@ -33,3 +33,6 @@ eval "$(fnm env --use-on-cd)"
 # Install latest LTS Node.js
 fnm install --lts
 fnm default lts-latest
+
+# Update npm to latest version
+npm install -g npm@latest
