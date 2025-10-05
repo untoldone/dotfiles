@@ -22,10 +22,10 @@ case $OS_TYPE in
 esac
 
 curl -O https://dl.google.com/go/$GO_INSTALL_FILE
-tar xvf $GO_INSTALL_FILE
-rm $GO_INSTALL_FILE
+tar xf $GO_INSTALL_FILE
 sudo chown -R root:$GO_INSTALL_GROUP ./go
 sudo mv go /usr/local
+rm $GO_INSTALL_FILE
 
 mkdir -p ~/go
 
