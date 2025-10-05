@@ -8,7 +8,7 @@ sudo -S apt-get update
 yes '' | sudo DEBIAN_FRONTEND=noninteractive apt-get -y -o DPkg::options::="--force-confdef" -o DPkg::options::="--force-confnew" dist-upgrade
 
 # General tools
-sudo apt-get install -y zsh curl apt-transport-https unzip ntpsec dbus jq git build-essential openjdk-21-jdk
+sudo apt-get install -y zsh curl apt-transport-https unzip ntpsec dbus jq git build-essential openjdk-21-jdk tmux
 
 # Switch shell
 sudo sed -i 's/required   pam_shells.so/sufficient   pam_shells.so/g' /etc/pam.d/chsh
