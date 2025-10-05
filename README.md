@@ -4,13 +4,13 @@ dotfiles
 More of new machines setup script than a dotfiles project. Setup on Debian 13 or MacOSX:
 
 **Prerequisites:**
-- Debian 13: curl, running as root (sudo and unzip will be auto-installed if needed)
+- Debian 13: curl (sudo will be auto-installed if needed, prompting for root password via `su`)
 - MacOSX: curl (built-in)
 
 **Installation:**
 ```bash
-# Run as root on Debian (sudo will be installed automatically)
-curl -fsSL https://raw.githubusercontent.com/untoldone/dotfiles/master/bootstrap.sh | bash -s <SUDO_PASSWORD>
+# Will prompt for sudo password interactively
+curl -fsSL https://raw.githubusercontent.com/untoldone/dotfiles/master/bootstrap.sh | bash
 ```
 
 ## Testing

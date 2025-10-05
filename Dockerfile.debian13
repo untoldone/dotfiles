@@ -9,11 +9,15 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Set up a test password for sudo (for automated testing)
-RUN echo 'root:testpassword' | chpasswd
+# Create a test user with sudo access (mimics real use case)
+RUN useradd -m -s /bin/bash testuser && \
+    echo 'testuser:testpassword' | chpasswd && \
+    usermod -aG sudo testuser && \
+    echo 'testuser ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/testuser
 
-# Create working directory
-WORKDIR /root
+# Switch to test user
+USER testuser
+WORKDIR /home/testuser
 
 # Keep container running
 CMD ["/bin/bash"]

@@ -29,19 +29,20 @@ docker run -d \
   sleep infinity
 
 echo -e "${GREEN}==> Installing dotfiles in container (non-interactive)${NC}"
-docker exec $CONTAINER_NAME bash -c "
-  cp -r /host-dotfiles /root/dotfiles && \
-  cd /root/dotfiles && \
-  ./init.sh $SUDO_PASSWORD
+# Note: testuser has NOPASSWD sudo, so no password prompt needed
+docker exec -u testuser $CONTAINER_NAME bash -c "
+  cp -r /host-dotfiles /home/testuser/dotfiles && \
+  cd /home/testuser/dotfiles && \
+  ./init.sh
 "
 
 echo -e "${GREEN}==> Setup complete!${NC}"
 echo ""
 echo -e "${YELLOW}To test the environment interactively, run:${NC}"
-echo -e "  ${GREEN}docker exec -it $CONTAINER_NAME zsh${NC}"
+echo -e "  ${GREEN}docker exec -it -u testuser $CONTAINER_NAME zsh${NC}"
 echo ""
 echo -e "${YELLOW}To verify installations:${NC}"
-echo -e "  ${GREEN}docker exec $CONTAINER_NAME bash -c 'ruby --version && go version && node --version && docker --version'${NC}"
+echo -e "  ${GREEN}docker exec -u testuser $CONTAINER_NAME bash -c 'ruby --version && go version && node --version && docker --version'${NC}"
 echo ""
 echo -e "${YELLOW}To clean up when done:${NC}"
 echo -e "  ${GREEN}docker rm -f $CONTAINER_NAME${NC}"
