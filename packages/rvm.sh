@@ -2,7 +2,8 @@
 
 set -e
 
-if [[ $(which rvm) ]]; then
+# Check if RVM is already installed by looking for installation directory
+if [[ -d /usr/local/rvm ]] || [[ -d ~/.rvm ]] || [[ -f /etc/profile.d/rvm.sh ]]; then
   echo "RVM already installed"
   exit 0
 fi

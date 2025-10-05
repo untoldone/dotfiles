@@ -2,7 +2,8 @@
 
 set -e
 
-if [[ $(which fnm) ]]; then
+# Check if FNM is already installed by looking for installation directory
+if [[ -d ~/.local/share/fnm ]] || [[ -d ~/.fnm ]]; then
   echo "FNM already installed"
   exit 0
 fi
