@@ -51,4 +51,8 @@ $SCRIPT_PATH/packages/docker.sh
 $SCRIPT_PATH/packages/android.sh
 $SCRIPT_PATH/packages/postgres.sh
 $SCRIPT_PATH/packages/go.sh
+$SCRIPT_PATH/packages/aws-cli.sh
+$SCRIPT_PATH/packages/gcloud-cli.sh
+$SCRIPT_PATH/packages/azure-cli.sh
+$SCRIPT_PATH/packages/github-cli.sh
 $SCRIPT_PATH/packages/claude-code.sh
